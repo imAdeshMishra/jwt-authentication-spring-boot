@@ -1,27 +1,33 @@
 package com.example.jwt_authentication.services;
 
-import com.example.jwt_authentication.dao.UserRepo;
-import com.example.jwt_authentication.models.User;
+import com.example.jwt_authentication.dao.UserCredentialsRepo;
+import com.example.jwt_authentication.entities.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
+
 @Component
 public class UserServices {
 
     @Autowired
-    UserRepo userRepo;
+    UserCredentialsRepo userRepo;
 
-    public List<User> getAllUsers(){
-        List<User> users = (List<User>) this.userRepo.findAll();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public List<UserCredentials> getAllUsers(){
+        List<UserCredentials> users = (List<UserCredentials>) this.userRepo.findAll();
         System.out.println(users);
         return users;
     }
 
-    public User addUser(User u){
-        // books.add(b);
-        User result = userRepo.save(u);
-        return result;
+    public UserCredentials createUser(UserCredentials user){
+        user.setId(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepo.save(user);
     }
 
 

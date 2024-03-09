@@ -3,23 +3,23 @@ package com.example.jwt_authentication.models;
 
 public class JwtRequest {
 
-    private String userName;
+    private String email;
     private String password;
 
     public JwtRequest() {
     }
 
-    public JwtRequest(String userName, String password) {
-        this.userName = userName;
+    public JwtRequest(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.email = userName;
     }
 
     public String getPassword() {
@@ -35,14 +35,14 @@ public class JwtRequest {
     }
 
     public static class JwtRequestBuilder {
-        private String userName;
+        private String email;
         private String password;
 
         public JwtRequestBuilder() {
         }
 
-        public JwtRequestBuilder userName(String userName) {
-            this.userName = userName;
+        public JwtRequestBuilder email(String email) {
+            this.email = email;
             return this;
         }
 
@@ -52,7 +52,7 @@ public class JwtRequest {
         }
 
         public JwtRequest build() {
-            return new JwtRequest(userName, password);
+            return new JwtRequest(email, password);
         }
     }
 }
